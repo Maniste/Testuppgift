@@ -20,6 +20,7 @@ public class Bank
                 System.out.println("2: Log in");
                 System.out.println("3: Exit");
 
+
                 int selection = input.nextInt();
 
                 switch(selection)
@@ -35,13 +36,16 @@ public class Bank
                         System.out.println("Quiting program, Thank you for using Luhn Bank");
                         bankLoop = false;
                         continue;
-
+                    default:
+                        throw new Exception("Invalid selection");
                 }
 
             }
-            catch (Exception e)
-            {
-
+            catch (NumberFormatException ne) {
+                System.out.println("ERROR: " + ne);
+            }
+            catch (Exception e) {
+                System.out.println("ERROR: " + e);
             }
         }
 
@@ -55,7 +59,7 @@ public class Bank
         int pin = 0, state = 1;
         long perNumber = 0;
 
-        System.out.println("Create a account selected\n");
+        System.out.println("Create an account selected\n");
 
         while (creationLoop)
         {
@@ -64,7 +68,6 @@ public class Bank
                 switch (state)
                 {
                     case 1:
-
                         System.out.print("First name: ");
                         fName = input.nextLine();
 
@@ -94,8 +97,9 @@ public class Bank
                         continue;
                     case 3:
                         System.out.print("\nInput personal number: ");
-
                         perNumber = input.nextInt();
+                        if(perNumber != 10)
+                            throw new Exception("personal number can not be longer or shorter than 10 digits");
 
                         state++;
                         continue;
@@ -103,8 +107,8 @@ public class Bank
                         System.out.print("\nCreate a PIN: ");
                         pin = input.nextInt();
 
-                        if(pin > 4)
-                            throw new Exception("PIN can not be longer than 4 digits");
+                        if(pin != 4)
+                            throw new Exception("PIN can not be longer or shorter than 4 digits");
 
                         state++;
                         continue;
